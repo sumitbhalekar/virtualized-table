@@ -1,6 +1,6 @@
 import AddIcon from "@mui/icons-material/AddRounded";
 import EditIcon from "@mui/icons-material/Edit";
-import ImportExportIcon from "@mui/icons-material/ImportExport";
+import ImportExportIcon from "@mui/icons-material/Delete";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import * as React from "react";
@@ -85,14 +85,32 @@ export const VirtualizedTable = () => {
   const [rowData, setRowData] = React.useState(rows);
 
   const _cellRenderer = ({ cellData }) => {
-    return (
-      <div
-        className="d-Washingtonex justify-content-between align-items-center"
-        style={{ cursor: "pointer" }}
-      >
-        <EditIcon fontSize="10" /> Edit
-      </div>
-    );
+    return rows.map(({ dataKey, ...other }, index) => {
+      return (
+        <div style={{ display: "inline-block", display: "flex" }}>
+          <div style={{ width: 50 }}>{rows[index].id}</div>
+          <div style={{ width: 200 }}>{rows[index].streetAdd1}</div>
+          <div style={{ width: 200 }}>{rows[index].streetAdd2}</div>
+          <div style={{ width: 100 }}>{rows[index].city}</div>
+          <div style={{ width: 100 }}>{rows[index].state}</div>
+          <div style={{ width: 100 }}>{rows[index].zipCode}</div>
+          <div style={{ width: 150 }}>{rows[index].effectDate}</div>
+          <div style={{ width: 150 }}>{rows[index].expDate}</div>
+          <div
+            className="d-Washingtonex justify-content-between align-items-center"
+            style={{ cursor: "pointer", width: 70 }}
+          >
+            <EditIcon fontSize="10" /> Edit
+          </div>
+          <div
+            className="d-Washingtonex justify-content-between align-items-center"
+            style={{ cursor: "pointer", marginLeft: 5, width: 70 }}
+          >
+            <ImportExportIcon fontSize="10" /> Delete
+          </div>
+        </div>
+      );
+    });
   };
 
   const headerRenderer = ({ label }) => {
@@ -105,6 +123,52 @@ export const VirtualizedTable = () => {
     );
   };
 
+  const columns = [
+    {
+      label: "Id",
+      dataKey: "id",
+      width: 50,
+    },
+    {
+      width: 200,
+      label: "Street Add1",
+      dataKey: "streetAdd1",
+    },
+    {
+      width: 200,
+      label: "Street Add2",
+      dataKey: "streetAdd2",
+    },
+    {
+      width: 100,
+      label: "City",
+      dataKey: "city",
+    },
+    {
+      width: 100,
+      label: "State",
+      dataKey: "state",
+    },
+    {
+      width: 100,
+      label: "Zip Code",
+      dataKey: "zipCode",
+    },
+    {
+      width: 150,
+      label: "Effective date",
+      dataKey: "effectDate",
+    },
+    {
+      width: 150,
+      label: "Expiration date",
+      dataKey: "expDate",
+    },
+    {
+      width: 100,
+      dataKey: "actions",
+    },
+  ];
   return (
     <Box sx={{ padding: "2%", borderWidth: 1, borderColor: "gray" }}>
       <AutoSizer style={{ height: "100%" }} disableHeight>
@@ -116,116 +180,31 @@ export const VirtualizedTable = () => {
               height={350}
               rowHeight={40}
               rowCount={rowData.length}
+              rowRenderer={(cellData, rowIndex) => _cellRenderer(cellData)}
               rowGetter={({ index }) => rowData[index]}
             >
-              <Column
-                label="Id"
-                dataKey="id"
-                width={50}
-                headerRenderer={headerRenderer}
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-              />
-              <Column
-                width={200}
-                label="Street Add1"
-                dataKey="streetAdd1"
-                className="headerStyle"
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                headerRenderer={headerRenderer}
-              />
-              <Column
-                width={200}
-                label="Street Add2"
-                dataKey="streetAdd2"
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                headerRenderer={headerRenderer}
-              />
-              <Column
-                width={100}
-                label="City"
-                dataKey="city"
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                headerRenderer={headerRenderer}
-              />
-              <Column
-                width={100}
-                label="State"
-                dataKey="state"
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                headerRenderer={headerRenderer}
-              />
-              <Column
-                width={100}
-                label="Zip Code"
-                dataKey="zipCode"
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                headerRenderer={headerRenderer}
-              />
-              <Column
-                width={150}
-                label="Effective Date"
-                dataKey="effectDate"
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                headerRenderer={headerRenderer}
-              />
-              <Column
-                width={150}
-                label="Expiration Date"
-                dataKey="expDate"
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                headerRenderer={headerRenderer}
-              />
-              <Column
-                width={100}
-                dataKey="actions"
-                headerStyle={{
-                  fontSize: 14,
-                  textTransform: "initial",
-                  display: "flex",
-                  alignItems: "center",
-                }}
-                cellRenderer={_cellRenderer}
-              />
+              {columns.map(({ dataKey, ...other }, index) => {
+                console.log(dataKey, other);
+                return (
+                  <Column
+                    key={dataKey}
+                    headerStyle={{
+                      fontSize: 14,
+                      textTransform: "initial",
+                      display: "flex",
+                      alignItems: "center",
+                    }}
+                    headerRenderer={(headerProps) =>
+                      headerRenderer({
+                        ...headerProps,
+                        columnIndex: index,
+                      })
+                    }
+                    dataKey={dataKey}
+                    {...other}
+                  />
+                );
+              })}
             </Table>
             <Button
               variant="outlined"
