@@ -22,17 +22,20 @@ export const VirtualizedTable = (props) => {
           rowCount={rowFinalData.length}
           rowGetter={({ index }) => rowFinalData[index]}
         >
-          {colFinalData?.map(({ dataKey, cellRenderer, ...other }, index) => {
-            return (
-              <Column
-                key={dataKey}
-                headerStyle={headerStyle}
-                cellRenderer={cellRenderer}
-                dataKey={dataKey}
-                {...other}
-              />
-            );
-          })}
+          {colFinalData?.map(
+            ({ dataKey, cellRenderer, headerRenderer, ...other }, index) => {
+              return (
+                <Column
+                  key={dataKey}
+                  headerStyle={headerStyle}
+                  headerRenderer={headerRenderer}
+                  cellRenderer={cellRenderer}
+                  dataKey={dataKey}
+                  {...other}
+                />
+              );
+            }
+          )}
         </Table>
       )}
     </AutoSizer>

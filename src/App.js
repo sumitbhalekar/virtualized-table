@@ -85,6 +85,7 @@ function App() {
       label: "Id",
       dataKey: "id",
       width: 50,
+      // headerRenderer: simpleCellRenderer,
     },
     {
       width: 200,
