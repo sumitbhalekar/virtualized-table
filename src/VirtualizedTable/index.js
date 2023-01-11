@@ -1,7 +1,7 @@
+import { PropTypes } from "prop-types";
 import * as React from "react";
 import { AutoSizer, Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
-import { number, PropTypes } from "prop-types";
 
 export const VirtualizedTable = (props) => {
   const rowFinalData = props.rowsData;
