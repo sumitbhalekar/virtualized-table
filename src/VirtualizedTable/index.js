@@ -1,6 +1,7 @@
 import * as React from "react";
 import { AutoSizer, Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
+import { number, PropTypes } from "prop-types";
 
 export const VirtualizedTable = (props) => {
   const rowFinalData = props.rowsData;
@@ -40,4 +41,14 @@ export const VirtualizedTable = (props) => {
       )}
     </AutoSizer>
   );
+};
+
+VirtualizedTable.propTypes = {
+  rowsData: PropTypes.array,
+  columnsData: PropTypes.array,
+  tableHeight: PropTypes.number,
+  tableWidth: PropTypes.number,
+  headerHeight: PropTypes.number,
+  rowHeight: PropTypes.number,
+  headerStyle: PropTypes.object,
 };
