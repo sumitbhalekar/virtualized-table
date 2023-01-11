@@ -8,7 +8,13 @@ import { AutoSizer, Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 import { default as styled } from "styled-components";
 
-export const VirtualizedTable = () => {
+export const VirtualizedTable = (props) => {
+  const propsData = JSON.stringify(props);
+  const parsedData = JSON.parse(propsData);
+  const rowFinalData = parsedData.rowsData;
+  const colFinalData = parsedData.columnsData;
+  console.log("ROW PROD DATA----", colFinalData);
+
   const TableStyles = styled.div`
     .ReactVirtualized__Table__headerRow {
       display: flex;
@@ -31,71 +37,72 @@ export const VirtualizedTable = () => {
     }
   `;
 
-  const rows = [
-    {
-      id: 1,
-      streetAdd1: "132, My Street, Kingston, New York 12401",
-      streetAdd2: "71 ST. NICHOLAS DRIVE",
-      city: "New York",
-      state: "Washington",
-      zipCode: 32092,
-      effectDate: "10/01/2023",
-      expDate: "11/01/2023",
-      firstName: "Jon",
-      age: 35,
-    },
-    {
-      id: 2,
-      streetAdd1: "132, My Street, Kingston, New York 12401",
-      streetAdd2: "71 ST. NICHOLAS DRIVE",
-      city: "New York",
-      state: "Washington",
-      zipCode: 32092,
-      effectDate: "10/01/2023",
-      expDate: "11/01/2023",
-      firstName: "Cersei",
-      age: 42,
-    },
-    {
-      id: 3,
-      streetAdd1: "132, My Street, Kingston, New York 12401",
-      streetAdd2: "71 ST. NICHOLAS DRIVE",
-      city: "New York",
-      state: "Washington",
-      zipCode: 32092,
-      effectDate: "10/01/2023",
-      expDate: "11/01/2023",
-      firstName: "Jaime",
-      age: 45,
-    },
-    {
-      id: 4,
-      streetAdd1: "132, My Street, Kingston, New York 12401",
-      streetAdd2: "71 ST. NICHOLAS DRIVE",
-      city: "New York",
-      state: "Washington",
-      zipCode: 32092,
-      effectDate: "10/01/2023",
-      expDate: "11/01/2023",
-      firstName: "Arya",
-      age: 16,
-    },
-  ];
+  // const rows = [
+  //   {
+  //     id: 1,
+  //     streetAdd1: "132, My Street, Kingston, New York 12401",
+  //     streetAdd2: "71 ST. NICHOLAS DRIVE",
+  //     city: "New York",
+  //     state: "Washington",
+  //     zipCode: 32092,
+  //     effectDate: "10/01/2023",
+  //     expDate: "11/01/2023",
+  //     firstName: "Jon",
+  //     age: 35,
+  //   },
+  //   {
+  //     id: 2,
+  //     streetAdd1: "132, My Street, Kingston, New York 12401",
+  //     streetAdd2: "71 ST. NICHOLAS DRIVE",
+  //     city: "New York",
+  //     state: "Washington",
+  //     zipCode: 32092,
+  //     effectDate: "10/01/2023",
+  //     expDate: "11/01/2023",
+  //     firstName: "Cersei",
+  //     age: 42,
+  //   },
+  //   {
+  //     id: 3,
+  //     streetAdd1: "132, My Street, Kingston, New York 12401",
+  //     streetAdd2: "71 ST. NICHOLAS DRIVE",
+  //     city: "New York",
+  //     state: "Washington",
+  //     zipCode: 32092,
+  //     effectDate: "10/01/2023",
+  //     expDate: "11/01/2023",
+  //     firstName: "Jaime",
+  //     age: 45,
+  //   },
+  //   {
+  //     id: 4,
+  //     streetAdd1: "132, My Street, Kingston, New York 12401",
+  //     streetAdd2: "71 ST. NICHOLAS DRIVE",
+  //     city: "New York",
+  //     state: "Washington",
+  //     zipCode: 32092,
+  //     effectDate: "10/01/2023",
+  //     expDate: "11/01/2023",
+  //     firstName: "Arya",
+  //     age: 16,
+  //   },
+  // ];
 
-  const [rowData, setRowData] = React.useState(rows);
+  const [rowData, setRowData] = React.useState(rowFinalData);
 
   const _cellRenderer = ({ cellData }) => {
-    return rows.map(({ dataKey, ...other }, index) => {
+    return rowData.map((dataKey, index) => {
+      // console.log("dataKey-----", dataKey);
       return (
-        <div style={{ display: "inline-block", display: "flex" }}>
-          <div style={{ width: 50 }}>{rows[index].id}</div>
-          <div style={{ width: 200 }}>{rows[index].streetAdd1}</div>
-          <div style={{ width: 200 }}>{rows[index].streetAdd2}</div>
-          <div style={{ width: 100 }}>{rows[index].city}</div>
-          <div style={{ width: 100 }}>{rows[index].state}</div>
-          <div style={{ width: 100 }}>{rows[index].zipCode}</div>
-          <div style={{ width: 150 }}>{rows[index].effectDate}</div>
-          <div style={{ width: 150 }}>{rows[index].expDate}</div>
+        <div style={{ display: "flex" }}>
+          <div style={{ width: 50 }}>{rowData[index].id}</div>
+          <div style={{ width: 200 }}>{rowData[index].streetAdd1}</div>
+          <div style={{ width: 200 }}>{rowData[index].streetAdd2}</div>
+          <div style={{ width: 100 }}>{rowData[index].city}</div>
+          <div style={{ width: 100 }}>{rowData[index].state}</div>
+          <div style={{ width: 100 }}>{rowData[index].zipCode}</div>
+          <div style={{ width: 150 }}>{rowData[index].effectDate}</div>
+          <div style={{ width: 150 }}>{rowData[index].expDate}</div>
           <div
             className="d-Washingtonex justify-content-between align-items-center"
             style={{ cursor: "pointer", width: 70 }}
@@ -183,8 +190,8 @@ export const VirtualizedTable = () => {
               rowRenderer={(cellData, rowIndex) => _cellRenderer(cellData)}
               rowGetter={({ index }) => rowData[index]}
             >
-              {columns.map(({ dataKey, ...other }, index) => {
-                console.log(dataKey, other);
+              {colFinalData.map(({ dataKey, ...other }, index) => {
+                // console.log(dataKey, other);
                 return (
                   <Column
                     key={dataKey}
