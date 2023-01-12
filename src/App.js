@@ -1,5 +1,4 @@
-import { ArrowDropDown } from "@mui/icons-material";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import ImportExportIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import * as React from "react";
@@ -94,21 +93,19 @@ function App() {
   const ColumnFilterContainer = (props) => {
     const { label, dataKey } = props;
     return (
-      <div
-        style={{ display: "inline-flex" }}
-        onClick={() => {
-          setSortByValue(dataKey);
-          setSortByDirection(
-            sortByDirection === SortDirection.ASC
-              ? SortDirection.DESC
-              : SortDirection.ASC
-          );
-        }}
-      >
+      <div style={{ display: "inline-flex" }}>
         {label}
-        <div style={{ width: 10 }}>
-          <ArrowDropUpIcon style={{ marginBottom: -20 }} />
-          <ArrowDropDown />
+        <div
+          onClick={() => {
+            setSortByValue(dataKey);
+            setSortByDirection(
+              sortByDirection === SortDirection.ASC
+                ? SortDirection.DESC
+                : SortDirection.ASC
+            );
+          }}
+        >
+          <SwapVertIcon style={{ fontSize: 18, marginTop: 2 }} />
         </div>
       </div>
     );
