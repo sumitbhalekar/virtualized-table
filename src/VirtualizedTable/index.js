@@ -1,6 +1,6 @@
 import { PropTypes } from "prop-types";
 import * as React from "react";
-import { AutoSizer, Column, Table } from "react-virtualized";
+import { AutoSizer, Column, SortDirection, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 
 export const VirtualizedTable = (props) => {
@@ -11,6 +11,26 @@ export const VirtualizedTable = (props) => {
   const rowHeight = props.rowHeight;
   const headerHeight = props.headerHeight;
   const headerStyle = props.headerStyle;
+  const sortByValue = props.sortByValue;
+  const sortByDirection = props.sortByDirection;
+
+  const [sortedList, setSortedList] = React.useState(rowFinalData);
+
+  const sortFunctionality = ({ sortBy, sortDirection }) => {
+    // const data = rowFinalData.sort(function (a, b) {
+    //   var x = a[sortBy];
+    //   var y = b[sortBy];
+    //   return x < y ? -1 : x > y ? 1 : 0;
+    // });
+    const data1 = rowFinalData.sort(function (a, b) {
+      var x = a[sortBy];
+      var y = b[sortBy];
+      return x - y;
+    });
+    const sortedData =
+      sortDirection === SortDirection.DESC ? data1.reverse() : data1;
+    setSortedList(sortedData);
+  };
 
   return (
     <AutoSizer disableHeight>
@@ -21,7 +41,10 @@ export const VirtualizedTable = (props) => {
           height={tableHeight}
           rowHeight={rowHeight}
           rowCount={rowFinalData.length}
-          rowGetter={({ index }) => rowFinalData[index]}
+          rowGetter={({ index }) => sortedList[index]}
+          sort={sortFunctionality}
+          sortBy={sortByValue}
+          sortDirection={sortByDirection}
         >
           {colFinalData?.map(
             ({ dataKey, cellRenderer, headerRenderer, ...other }, index) => {
@@ -51,4 +74,6 @@ VirtualizedTable.propTypes = {
   headerHeight: PropTypes.number,
   rowHeight: PropTypes.number,
   headerStyle: PropTypes.object,
+  sortByValue: PropTypes.string,
+  sortByDirection: PropTypes.string,
 };
