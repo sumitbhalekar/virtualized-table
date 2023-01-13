@@ -93,18 +93,19 @@ function App() {
   const ColumnFilterContainer = (props) => {
     const { label, dataKey } = props;
     return (
-      <div style={{ display: "inline-flex" }}>
+      <div
+        style={{ display: "inline-flex" }}
+        onClick={() => {
+          setSortByValue(dataKey);
+          setSortByDirection(
+            sortByDirection === SortDirection.ASC
+              ? SortDirection.DESC
+              : SortDirection.ASC
+          );
+        }}
+      >
         {label}
-        <div
-          onClick={() => {
-            setSortByValue(dataKey);
-            setSortByDirection(
-              sortByDirection === SortDirection.ASC
-                ? SortDirection.DESC
-                : SortDirection.ASC
-            );
-          }}
-        >
+        <div>
           <SwapVertIcon style={{ fontSize: 18, marginTop: 2 }} />
         </div>
       </div>
