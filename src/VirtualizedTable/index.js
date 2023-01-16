@@ -17,11 +17,6 @@ export const VirtualizedTable = (props) => {
   const [sortedList, setSortedList] = React.useState(rowFinalData);
 
   const sortFunctionality = ({ sortBy, sortDirection }) => {
-    // const data = rowFinalData.sort(function (a, b) {
-    //   var x = a[sortBy];
-    //   var y = b[sortBy];
-    //   return x < y ? -1 : x > y ? 1 : 0;
-    // });
     const data1 = rowFinalData.sort(function (a, b) {
       var x = a[sortBy];
       var y = b[sortBy];

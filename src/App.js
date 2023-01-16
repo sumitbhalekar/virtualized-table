@@ -1,6 +1,8 @@
-import SwapVertIcon from "@mui/icons-material/SwapVert";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ImportExportIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import SwapVertIcon from "@mui/icons-material/SwapVert";
 import * as React from "react";
 import { SortDirection } from "react-virtualized";
 import "./App.css";
@@ -90,6 +92,7 @@ function App() {
       <ColumnFilterContainer label={value.label} dataKey={value.dataKey} />
     );
   };
+
   const ColumnFilterContainer = (props) => {
     const { label, dataKey } = props;
     return (
@@ -105,8 +108,13 @@ function App() {
         }}
       >
         {label}
-        <div>
+        <div style={{ display: "inline-flex" }}>
           <SwapVertIcon style={{ fontSize: 18, marginTop: 2 }} />
+          {sortByDirection === SortDirection.ASC ? (
+            <ArrowUpwardIcon style={{ fontSize: 16, marginTop: 2 }} />
+          ) : (
+            <ArrowDownwardIcon style={{ fontSize: 16, marginTop: 2 }} />
+          )}
         </div>
       </div>
     );
