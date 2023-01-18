@@ -111,7 +111,7 @@ function App() {
         {label}
         <div style={{ display: "inline-flex" }}>
           <SwapVertIcon style={{ fontSize: 18, marginTop: 2 }} />
-          {sortByDirection === SortDirection.ASC ? (
+          {sortByDirection === SortDirection.ASC && dataKey === sortByValue ? (
             <ArrowUpwardIcon style={{ fontSize: 16, marginTop: 2 }} />
           ) : (
             <ArrowDownwardIcon style={{ fontSize: 16, marginTop: 2 }} />

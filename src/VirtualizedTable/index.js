@@ -29,6 +29,14 @@ export const VirtualizedTable = (props) => {
 
   const sortAction = (sortBy, sortDirection) => {
     console.log("Value----", sortBy, sortDirection);
+    const data1 = rowFinalData.sort(function (a, b) {
+      var x = a[sortBy];
+      var y = b[sortBy];
+      return x - y;
+    });
+    const sortedData =
+      sortDirection === SortDirection.DESC ? data1.reverse() : data1;
+    setSortedList(sortedData);
   };
 
   return (
