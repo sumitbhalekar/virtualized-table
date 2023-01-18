@@ -27,6 +27,8 @@ export const VirtualizedTable = (props) => {
     setSortedList(sortedData);
   };
 
+  const sortAction = () => {};
+
   return (
     <AutoSizer disableHeight>
       {({ height, width }) => (
@@ -37,7 +39,9 @@ export const VirtualizedTable = (props) => {
           rowHeight={rowHeight}
           rowCount={rowFinalData.length}
           rowGetter={({ index }) => sortedList[index]}
-          sort={sortFunctionality}
+          sort={(p) => {
+            sortAction(p.sortBy);
+          }}
           sortBy={sortByValue}
           sortDirection={sortByDirection}
         >
@@ -71,4 +75,5 @@ VirtualizedTable.propTypes = {
   headerStyle: PropTypes.object,
   sortByValue: PropTypes.string,
   sortByDirection: PropTypes.string,
+  sortAction: PropTypes.function,
 };
