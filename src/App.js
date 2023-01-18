@@ -6,6 +6,7 @@ import SwapVertIcon from "@mui/icons-material/SwapVert";
 import * as React from "react";
 import { SortDirection } from "react-virtualized";
 import "./App.css";
+import { CardView } from "./CardView";
 import { VirtualizedTable } from "./VirtualizedTable";
 
 function App() {
@@ -183,6 +184,7 @@ function App() {
 
   return (
     <>
+      {/* <CardView /> */}
       <VirtualizedTable
         rowsData={rows}
         columnsData={columns}
