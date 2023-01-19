@@ -1,17 +1,17 @@
+import { Edit } from "@mui/icons-material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { CardHeader } from "@mui/material";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Collapse from "@mui/material/Collapse";
+import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import * as React from "react";
+import { PropTypes } from "prop-types";
 
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { CardHeader } from "@mui/material";
-
-import { Edit } from "@mui/icons-material";
-import IconButton from "@mui/material/IconButton";
-
-export const CardView = () => {
+export const CardView = (props) => {
+  const { cardBody } = props;
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
@@ -51,8 +51,12 @@ export const CardView = () => {
       />
       <CardActions disableSpacing></CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent></CardContent>
+        <CardContent>{cardBody}</CardContent>
       </Collapse>
     </Card>
   );
+};
+
+CardView.propTypes = {
+  cardBody: PropTypes.any,
 };

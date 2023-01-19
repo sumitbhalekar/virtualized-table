@@ -185,23 +185,27 @@ function App() {
 
   return (
     <>
-      {/* <CardView /> */}
-      <VirtualizedTable
-        rowsData={rows}
-        columnsData={columns}
-        tableHeight={350}
-        tableWidth={1150}
-        headerHeight={40}
-        rowHeight={40}
-        headerStyle={{
-          fontSize: 14,
-          textTransform: "initial",
-          display: "flex",
-          alignItems: "center",
-        }}
-        sortByValue={sortByValue}
-        sortByDirection={sortByDirection}
+      <CardView
+        cardBody={
+          <VirtualizedTable
+            rowsData={rows}
+            columnsData={columns}
+            tableHeight={350}
+            tableWidth={1150}
+            headerHeight={40}
+            rowHeight={40}
+            headerStyle={{
+              fontSize: 14,
+              textTransform: "initial",
+              display: "flex",
+              alignItems: "center",
+            }}
+            sortByValue={sortByValue}
+            sortByDirection={sortByDirection}
+          />
+        }
       />
+
       {/* <Button
         variant="outlined"
         style={{ marginTop: 20, width: 250 }}

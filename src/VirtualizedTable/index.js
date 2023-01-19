@@ -4,32 +4,22 @@ import { AutoSizer, Column, SortDirection, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 
 export const VirtualizedTable = (props) => {
-  const rowFinalData = props.rowsData;
-  const colFinalData = props.columnsData;
-  const tableHeight = props.tableHeight;
-  const tableWidth = props.tableWidth;
-  const rowHeight = props.rowHeight;
-  const headerHeight = props.headerHeight;
-  const headerStyle = props.headerStyle;
-  const sortByValue = props.sortByValue;
-  const sortByDirection = props.sortByDirection;
+  const {
+    rowsData,
+    columnsData,
+    tableHeight,
+    tableWidth,
+    rowHeight,
+    headerHeight,
+    headerStyle,
+    sortByValue,
+    sortByDirection,
+  } = props;
 
-  const [sortedList, setSortedList] = React.useState(rowFinalData);
-
-  const sortFunctionality = ({ sortBy, sortDirection }) => {
-    const data1 = rowFinalData.sort(function (a, b) {
-      var x = a[sortBy];
-      var y = b[sortBy];
-      return x - y;
-    });
-    const sortedData =
-      sortDirection === SortDirection.DESC ? data1.reverse() : data1;
-    setSortedList(sortedData);
-  };
+  const [sortedList, setSortedList] = React.useState(rowsData);
 
   const sortAction = (sortBy, sortDirection) => {
-    console.log("Value----", sortBy, sortDirection);
-    const data1 = rowFinalData.sort(function (a, b) {
+    const data1 = rowsData?.sort(function (a, b) {
       var x = a[sortBy];
       var y = b[sortBy];
       return x - y;
@@ -47,7 +37,7 @@ export const VirtualizedTable = (props) => {
           width={tableWidth}
           height={tableHeight}
           rowHeight={rowHeight}
-          rowCount={rowFinalData.length}
+          rowCount={rowsData?.length}
           rowGetter={({ index }) => sortedList[index]}
           sort={(p) => {
             sortAction(p.sortBy, p.sortDirection);
@@ -56,7 +46,7 @@ export const VirtualizedTable = (props) => {
           sortBy={sortByValue}
           sortDirection={sortByDirection}
         >
-          {colFinalData?.map(
+          {columnsData?.map(
             ({ dataKey, cellRenderer, headerRenderer, ...other }, index) => {
               return (
                 <Column
