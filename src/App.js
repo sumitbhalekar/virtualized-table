@@ -212,7 +212,7 @@ function App() {
         }
         cardTitle="Payment Address Details"
         cardWidth={1200}
-        headerRightIcon={<EditIcon htmlColor="#fff" fontSize="10" />}
+        headerRightIcon={<EditIcon htmlColor="#fff"  />}
         cardHeight={300}
         handleExpandClick={handleExpandClick}
         expanded={expanded}
