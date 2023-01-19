@@ -52,6 +52,7 @@ export const VirtualizedTable = (props) => {
           sort={(p) => {
             sortAction(p.sortBy, p.sortDirection);
           }}
+          sortState
           sortBy={sortByValue}
           sortDirection={sortByDirection}
         >

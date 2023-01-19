@@ -111,11 +111,12 @@ function App() {
         {label}
         <div style={{ display: "inline-flex" }}>
           <SwapVertIcon style={{ fontSize: 18, marginTop: 2 }} />
-          {sortByDirection === SortDirection.ASC && dataKey === sortByValue ? (
-            <ArrowUpwardIcon style={{ fontSize: 16, marginTop: 2 }} />
-          ) : (
-            <ArrowDownwardIcon style={{ fontSize: 16, marginTop: 2 }} />
-          )}
+          {dataKey === sortByValue &&
+            (sortByDirection === SortDirection.ASC ? (
+              <ArrowUpwardIcon style={{ fontSize: 16, marginTop: 2 }} />
+            ) : (
+              <ArrowDownwardIcon style={{ fontSize: 16, marginTop: 2 }} />
+            ))}
         </div>
       </div>
     );
