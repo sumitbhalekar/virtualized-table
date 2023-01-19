@@ -1,22 +1,25 @@
-import { Edit } from "@mui/icons-material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { CardHeader } from "@mui/material";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
-import * as React from "react";
 import { PropTypes } from "prop-types";
+import * as React from "react";
+import "../CardView/card-view.css";
 
 export const CardView = (props) => {
-  const { cardBody } = props;
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const {
+    cardBody,
+    cardTitle,
+    showExpandIcon,
+    cardHeight,
+    cardWidth,
+    headerRightIcon,
+    handleExpandClick,
+    expanded,
+    showHeaderRightIcon,
+  } = props;
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -30,26 +33,44 @@ export const CardView = (props) => {
   }));
 
   return (
-    <Card sx={{ maxWidth: 1200, borderRadius: 2 }}>
-      <CardHeader
-        action={
-          <>
-            <IconButton aria-label="settings">
-              <Edit />
-            </IconButton>
+    <Card sx={{ maxWidth: cardWidth, maxHeight: cardHeight }}>
+      <div
+        style={{
+          width: cardWidth,
+          height: 42,
+          backgroundColor: "#0983c8",
+          justifyContent: "space-between",
+          display: "flex",
+          alignItems: "center",
+          opacity: 1,
+        }}
+      >
+        <div
+          style={{
+            color: "#ffffff",
+            width: "20%",
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {cardTitle}
+        </div>
+        <div>
+          {showHeaderRightIcon && (
+            <IconButton aria-label="settings">{headerRightIcon}</IconButton>
+          )}
+          {showExpandIcon && (
             <ExpandMore
               expand={expanded}
               onClick={handleExpandClick}
               aria-expanded={expanded}
               aria-label="show more"
             >
-              <ExpandMoreIcon />
+              <ExpandMoreIcon htmlColor="#fff" />
             </ExpandMore>
-          </>
-        }
-        title="Payment Address Details"
-      />
-      <CardActions disableSpacing></CardActions>
+          )}
+        </div>
+      </div>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>{cardBody}</CardContent>
       </Collapse>
@@ -59,4 +80,11 @@ export const CardView = (props) => {
 
 CardView.propTypes = {
   cardBody: PropTypes.any,
+  cardTitle: PropTypes.string,
+  cardWidth: PropTypes.number,
+  cardHeight: PropTypes.number,
+  headerRightIcon: PropTypes.any,
+  handleExpandClick: PropTypes.func,
+  expanded: PropTypes.bool,
+  showHeaderRightIcon: PropTypes.bool,
 };

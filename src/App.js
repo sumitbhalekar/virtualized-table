@@ -183,6 +183,12 @@ function App() {
     },
   ];
 
+  const [expanded, setExpanded] = React.useState(true);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <>
       <CardView
@@ -204,6 +210,14 @@ function App() {
             sortByDirection={sortByDirection}
           />
         }
+        cardTitle="Payment Address Details"
+        cardWidth={1200}
+        headerRightIcon={<EditIcon htmlColor="#fff" fontSize="10" />}
+        cardHeight={300}
+        handleExpandClick={handleExpandClick}
+        expanded={expanded}
+        showExpandIcon={true}
+        showHeaderRightIcon={true}
       />
 
       {/* <Button
