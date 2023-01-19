@@ -23,6 +23,7 @@ export const CardView = (props) => {
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
+
     return <IconButton {...other} />;
   })(({ theme, expand }) => ({
     transform: !expand ? "rotate(0deg)" : "rotate(180deg)",
@@ -33,7 +34,7 @@ export const CardView = (props) => {
   }));
 
   return (
-    <Card sx={{ maxWidth: cardWidth, maxHeight: cardHeight }}>
+    <Card sx={{ maxWidth: cardWidth, maxHeight: cardHeight, margin: 10 }}>
       <div
         style={{
           width: cardWidth,

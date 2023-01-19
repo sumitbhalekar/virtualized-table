@@ -185,16 +185,29 @@ function App() {
 
   const [expanded, setExpanded] = React.useState(true);
 
+  const [sortedList, setSortedList] = React.useState(rows);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
+  const customSortAction = (sortBy, sortDirection) => {
+    console.log("Changes", sortBy, sortDirection);
+    const data1 = sortedList?.sort(function (a, b) {
+      var x = a[sortBy];
+      var y = b[sortBy];
+      return x - y;
+    });
+    const sortedData =
+      sortDirection === SortDirection.DESC ? data1.reverse() : data1;
+    setSortedList(sortedData);
+  };
   return (
     <>
       <CardView
         cardBody={
           <VirtualizedTable
-            rowsData={rows}
+            rowsData={sortedList}
             columnsData={columns}
             tableHeight={350}
             tableWidth={1150}
@@ -208,40 +221,18 @@ function App() {
             }}
             sortByValue={sortByValue}
             sortByDirection={sortByDirection}
+            sortAction={(p) => customSortAction(p.sortBy, p.sortDirection)}
           />
         }
         cardTitle="Payment Address Details"
         cardWidth={1200}
-        headerRightIcon={<EditIcon htmlColor="#fff"  />}
+        headerRightIcon={<EditIcon htmlColor="#fff" />}
         cardHeight={300}
         handleExpandClick={handleExpandClick}
         expanded={expanded}
         showExpandIcon={true}
         showHeaderRightIcon={true}
       />
-
-      {/* <Button
-        variant="outlined"
-        style={{ marginTop: 20, width: 250 }}
-        startIcon={<AddIcon />}
-        onClick={() => {
-          const addRowData = rowData.concat({
-            id: rowData.length + 1,
-            streetAdd1: "132, My Street, Kingston, New York 12401",
-            streetAdd2: "71 ST. NICHOLAS DRIVE",
-            city: "New York",
-            state: "Washington",
-            zipCode: 32092,
-            effectDate: "10/01/2023",
-            expDate: "11/01/2023",
-            firstName: "Daenerys",
-            age: null,
-          });
-          setRowData(addRowData);
-        }}
-      >
-        Add Service Locations
-      </Button> */}
     </>
   );
 }

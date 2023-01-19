@@ -1,6 +1,6 @@
 import { PropTypes } from "prop-types";
 import * as React from "react";
-import { AutoSizer, Column, SortDirection, Table } from "react-virtualized";
+import { AutoSizer, Column, Table } from "react-virtualized";
 import "react-virtualized/styles.css";
 
 export const VirtualizedTable = (props) => {
@@ -14,20 +14,8 @@ export const VirtualizedTable = (props) => {
     headerStyle,
     sortByValue,
     sortByDirection,
+    sortAction,
   } = props;
-
-  const [sortedList, setSortedList] = React.useState(rowsData);
-
-  const sortAction = (sortBy, sortDirection) => {
-    const data1 = rowsData?.sort(function (a, b) {
-      var x = a[sortBy];
-      var y = b[sortBy];
-      return x - y;
-    });
-    const sortedData =
-      sortDirection === SortDirection.DESC ? data1.reverse() : data1;
-    setSortedList(sortedData);
-  };
 
   return (
     <AutoSizer disableHeight>
@@ -38,13 +26,10 @@ export const VirtualizedTable = (props) => {
           height={tableHeight}
           rowHeight={rowHeight}
           rowCount={rowsData?.length}
-          rowGetter={({ index }) => sortedList[index]}
-          sort={(p) => {
-            sortAction(p.sortBy, p.sortDirection);
-          }}
-          sortState
+          rowGetter={({ index }) => rowsData[index]}
           sortBy={sortByValue}
           sortDirection={sortByDirection}
+          sort={sortAction ? (p) => sortAction(p) : () => {}}
         >
           {columnsData?.map(
             ({ dataKey, cellRenderer, headerRenderer, ...other }, index) => {
