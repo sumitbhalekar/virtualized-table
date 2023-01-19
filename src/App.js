@@ -192,7 +192,6 @@ function App() {
   };
 
   const customSortAction = (sortBy, sortDirection) => {
-    console.log("Changes", sortBy, sortDirection);
     const data1 = sortedList?.sort(function (a, b) {
       var x = a[sortBy];
       var y = b[sortBy];

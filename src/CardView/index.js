@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import { styled } from "@mui/material/styles";
 import { PropTypes } from "prop-types";
 import * as React from "react";
-import "../CardView/card-view.css";
 
 export const CardView = (props) => {
   const {
