@@ -15,6 +15,7 @@ export const VirtualizedTable = (props) => {
     sortByValue,
     sortByDirection,
     sortAction,
+    _rowRenderer,
   } = props;
 
   return (
@@ -25,6 +26,7 @@ export const VirtualizedTable = (props) => {
           width={tableWidth}
           height={tableHeight}
           rowHeight={rowHeight}
+          rowRenderer={_rowRenderer}
           rowCount={rowsData?.length}
           rowGetter={({ index }) => rowsData[index]}
           sortBy={sortByValue}
@@ -32,7 +34,10 @@ export const VirtualizedTable = (props) => {
           sort={sortAction ? (p) => sortAction(p) : () => {}}
         >
           {columnsData?.map(
-            ({ dataKey, cellRenderer, headerRenderer, ...other }, index) => {
+            (
+              { dataKey, cellRenderer, headerRenderer, rowRenderer, ...other },
+              index
+            ) => {
               return (
                 <Column
                   key={dataKey}
@@ -62,4 +67,5 @@ VirtualizedTable.propTypes = {
   sortByValue: PropTypes.string,
   sortByDirection: PropTypes.string,
   sortAction: PropTypes.func,
+  _rowRenderer: PropTypes.func,
 };

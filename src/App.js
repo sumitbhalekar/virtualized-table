@@ -1,14 +1,17 @@
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
+import ControlPointIcon from "@mui/icons-material/ControlPoint";
 import ImportExportIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import PeopleIcon from "@mui/icons-material/People";
 import SwapVertIcon from "@mui/icons-material/SwapVert";
+import { Button, Card } from "@mui/material";
+import Checkbox from "@mui/material/Checkbox";
 import * as React from "react";
 import { SortDirection } from "react-virtualized";
 import "./App.css";
 import { CardView } from "./CardView";
 import { VirtualizedTable } from "./VirtualizedTable";
-
 function App() {
   const [sortByValue, setSortByValue] = React.useState("id");
   const [sortByDirection, setSortByDirection] = React.useState(
@@ -30,7 +33,7 @@ function App() {
     return (
       <div
         className="d-Washingtonex justify-content-between align-items-center"
-        style={{ cursor: "pointer", width: 70 }}
+        style={{ cursor: "pointer", width: 80 }}
       >
         <ImportExportIcon fontSize="10" /> Remove
       </div>
@@ -122,6 +125,39 @@ function App() {
     );
   };
 
+  const checkBoxButton = () => {
+    return (
+      <div style={{ margin: 5 }}>
+        <Checkbox
+          sx={{
+            color: "#00000029",
+          }}
+        />
+        <span style={{ fontSize: 14 }}>
+          Apply this payment location to all Provider Staff List.
+        </span>
+        <Button
+          variant="outlined"
+          style={{
+            marginTop: 20,
+            width: 230,
+            backgroundColor: "#4CAF50",
+            borderRadius: 5,
+            borderColor: "#fff",
+            marginLeft: 5,
+            marginBottom: 12,
+          }}
+          startIcon={<PeopleIcon htmlColor="#fff" />}
+          onClick={() => {}}
+        >
+          <span style={{ color: "#fff", textTransform: "none" }}>
+            Select Provider Staff List
+          </span>
+        </Button>
+      </div>
+    );
+  };
+
   const columns = [
     {
       label: "Id",
@@ -178,7 +214,7 @@ function App() {
     },
     {
       width: 100,
-      dataKey: "actions",
+      dataKey: "actionsDelete",
       cellRenderer: simpleCellRenderer,
     },
   ];
@@ -201,32 +237,145 @@ function App() {
       sortDirection === SortDirection.DESC ? data1.reverse() : data1;
     setSortedList(sortedData);
   };
+
+  function _customRowRenderer({ key, index }) {
+    return (
+      <Card style={{margin:10}}>
+        <div
+          key={key}
+          className="ReactVirtualized__Table__row"
+          role="row"
+          style={{
+            width: 1150,
+          }}
+        >
+          {
+            <>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                role="gridcell"
+                style={{ overflow: "hidden", width: 50 }}
+              >
+                {sortedList[index].id}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                style={{ overflow: "hidden", width: 200 }}
+              >
+                {sortedList[index].streetAdd1}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                style={{ overflow: "hidden", width: 200 }}
+              >
+                {sortedList[index].streetAdd2}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                role="gridcell"
+                style={{ overflow: "hidden", width: 100 }}
+              >
+                {sortedList[index].city}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                role="gridcell"
+                style={{ overflow: "hidden", width: 100 }}
+              >
+                {sortedList[index].state}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                role="gridcell"
+                style={{ overflow: "hidden", width: 100 }}
+              >
+                {sortedList[index].zipCode}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                role="gridcell"
+                style={{ overflow: "hidden", width: 150 }}
+              >
+                {sortedList[index].effectDate}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                role="gridcell"
+                style={{ overflow: "hidden", width: 150 }}
+              >
+                {sortedList[index].expDate}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                role="gridcell"
+                style={{ overflow: "hidden", width: 100 }}
+              >
+                {sortedList[index].actions}
+              </div>
+              <div
+                className="ReactVirtualized__Table__rowColumn"
+                role="gridcell"
+                style={{ overflow: "hidden", width: 100 }}
+              >
+                {sortedList[index].actionsDelete}
+              </div>
+              {/* {simpleEditCellRenderer()}
+              {simpleCellRenderer()} */}
+            </>
+          }
+        </div>
+        {checkBoxButton()}
+      </Card>
+    );
+  }
+
+  const cardInnerView = () => {
+    return (
+      <>
+        <VirtualizedTable
+          rowsData={sortedList}
+          columnsData={columns}
+          tableHeight={300}
+          tableWidth={1150}
+          headerHeight={40}
+          rowHeight={100}
+          headerStyle={{
+            fontSize: 14,
+            textTransform: "initial",
+            alignItems: "center",
+          }}
+          sortByValue={sortByValue}
+          sortByDirection={sortByDirection}
+          sortAction={(p) => customSortAction(p.sortBy, p.sortDirection)}
+          _rowRenderer={_customRowRenderer}
+        />
+        <Button
+          variant="outlined"
+          style={{
+            marginTop: 20,
+            width: 230,
+            backgroundColor: "#4CAF50",
+            borderRadius: 5,
+            borderColor: "#fff",
+          }}
+          startIcon={<ControlPointIcon htmlColor="#fff" />}
+          onClick={() => {}}
+        >
+          <span style={{ color: "#fff", textTransform: "none" }}>
+            Add Payment Location(s)
+          </span>
+        </Button>
+      </>
+    );
+  };
   return (
     <>
       <CardView
-        cardBody={
-          <VirtualizedTable
-            rowsData={sortedList}
-            columnsData={columns}
-            tableHeight={350}
-            tableWidth={1150}
-            headerHeight={40}
-            rowHeight={40}
-            headerStyle={{
-              fontSize: 14,
-              textTransform: "initial",
-              display: "flex",
-              alignItems: "center",
-            }}
-            sortByValue={sortByValue}
-            sortByDirection={sortByDirection}
-            sortAction={(p) => customSortAction(p.sortBy, p.sortDirection)}
-          />
-        }
+        cardBody={cardInnerView()}
         cardTitle="Payment Address Details"
         cardWidth={1200}
         headerRightIcon={<EditIcon htmlColor="#fff" />}
-        cardHeight={300}
+        cardHeight={600}
         handleExpandClick={handleExpandClick}
         expanded={expanded}
         showExpandIcon={true}
