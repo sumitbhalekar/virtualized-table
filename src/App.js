@@ -71,7 +71,6 @@ function App() {
   const [expanded, setExpanded] = React.useState(true);
   const [sortedList, setSortedList] = React.useState(rows);
 
-
   const simpleHeaderRenderer = (value) => {
     return (
       <ColumnFilterContainer label={value.label} dataKey={value.dataKey} />
@@ -297,6 +296,7 @@ function App() {
       headerRenderer: simpleHeaderRenderer,
     },
   ];
+
   const cardInnerView = () => {
     return (
       <>
