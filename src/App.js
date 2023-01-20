@@ -12,34 +12,8 @@ import { SortDirection } from "react-virtualized";
 import "./App.css";
 import { CardView } from "./CardView";
 import { VirtualizedTable } from "./VirtualizedTable";
+
 function App() {
-  const [sortByValue, setSortByValue] = React.useState("id");
-  const [sortByDirection, setSortByDirection] = React.useState(
-    SortDirection.ASC
-  );
-
-  const simpleEditCellRenderer = () => {
-    return (
-      <div
-        className="d-Washingtonex justify-content-between align-items-center"
-        style={{ cursor: "pointer", width: 70 }}
-      >
-        <EditIcon fontSize="10" /> Edit
-      </div>
-    );
-  };
-
-  const simpleCellRenderer = () => {
-    return (
-      <div
-        className="d-Washingtonex justify-content-between align-items-center"
-        style={{ cursor: "pointer", width: 80 }}
-      >
-        <ImportExportIcon fontSize="10" /> Remove
-      </div>
-    );
-  };
-
   const rows = [
     {
       id: "1",
@@ -90,6 +64,34 @@ function App() {
       age: 16,
     },
   ];
+  const [sortByValue, setSortByValue] = React.useState("id");
+  const [sortByDirection, setSortByDirection] = React.useState(
+    SortDirection.ASC
+  );
+  const [expanded, setExpanded] = React.useState(true);
+  const [sortedList, setSortedList] = React.useState(rows);
+
+  const simpleEditCellRenderer = () => {
+    return (
+      <div
+        className="d-Washingtonex justify-content-between align-items-center"
+        style={{ cursor: "pointer", width: 70 }}
+      >
+        <EditIcon fontSize="10" /> Edit
+      </div>
+    );
+  };
+
+  const simpleCellRenderer = () => {
+    return (
+      <div
+        className="d-Washingtonex justify-content-between align-items-center"
+        style={{ cursor: "pointer", width: 80 }}
+      >
+        <ImportExportIcon fontSize="10" /> Remove
+      </div>
+    );
+  };
 
   const simpleHeaderRenderer = (value) => {
     return (
@@ -158,71 +160,6 @@ function App() {
     );
   };
 
-  const columns = [
-    {
-      label: "Id",
-      dataKey: "id",
-      width: 50,
-      headerRenderer: simpleHeaderRenderer,
-    },
-    {
-      width: 200,
-      label: "Street Add1",
-      dataKey: "streetAdd1",
-      headerRenderer: simpleHeaderRenderer,
-    },
-    {
-      width: 200,
-      label: "Street Add2",
-      dataKey: "streetAdd2",
-      headerRenderer: simpleHeaderRenderer,
-    },
-    {
-      width: 100,
-      label: "City",
-      dataKey: "city",
-      headerRenderer: simpleHeaderRenderer,
-    },
-    {
-      width: 100,
-      label: "State",
-      dataKey: "state",
-      headerRenderer: simpleHeaderRenderer,
-    },
-    {
-      width: 100,
-      label: "Zip Code",
-      dataKey: "zipCode",
-      headerRenderer: simpleHeaderRenderer,
-    },
-    {
-      width: 150,
-      label: "Effective date",
-      dataKey: "effectDate",
-      headerRenderer: simpleHeaderRenderer,
-    },
-    {
-      width: 150,
-      label: "Expiration date",
-      dataKey: "expDate",
-      headerRenderer: simpleHeaderRenderer,
-    },
-    {
-      width: 100,
-      dataKey: "actions",
-      cellRenderer: simpleEditCellRenderer,
-    },
-    {
-      width: 100,
-      dataKey: "actionsDelete",
-      cellRenderer: simpleCellRenderer,
-    },
-  ];
-
-  const [expanded, setExpanded] = React.useState(true);
-
-  const [sortedList, setSortedList] = React.useState(rows);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -240,13 +177,13 @@ function App() {
 
   function _customRowRenderer({ key, index }) {
     return (
-      <Card style={{margin:10}}>
+      <Card style={{ marginTop: 10, marginRight: 10 }}>
         <div
           key={key}
           className="ReactVirtualized__Table__row"
           role="row"
           style={{
-            width: 1150,
+            width: 1450,
           }}
         >
           {
@@ -306,21 +243,23 @@ function App() {
                 {sortedList[index].expDate}
               </div>
               <div
-                className="ReactVirtualized__Table__rowColumn"
-                role="gridcell"
-                style={{ overflow: "hidden", width: 100 }}
+                style={{
+                  overflow: "hidden",
+                  width: 70,
+                  cursor: "pointer",
+                }}
               >
-                {sortedList[index].actions}
+                <EditIcon fontSize="10" /> Edit
               </div>
               <div
-                className="ReactVirtualized__Table__rowColumn"
-                role="gridcell"
-                style={{ overflow: "hidden", width: 100 }}
+                style={{
+                  overflow: "hidden",
+                  width: 80,
+                  cursor: "pointer",
+                }}
               >
-                {sortedList[index].actionsDelete}
+                <ImportExportIcon fontSize="10" /> Remove
               </div>
-              {/* {simpleEditCellRenderer()}
-              {simpleCellRenderer()} */}
             </>
           }
         </div>
@@ -329,6 +268,56 @@ function App() {
     );
   }
 
+  const columns = [
+    {
+      label: "Id",
+      dataKey: "id",
+      width: 50,
+      headerRenderer: simpleHeaderRenderer,
+    },
+    {
+      width: 200,
+      label: "Street Add1",
+      dataKey: "streetAdd1",
+      headerRenderer: simpleHeaderRenderer,
+    },
+    {
+      width: 200,
+      label: "Street Add2",
+      dataKey: "streetAdd2",
+      headerRenderer: simpleHeaderRenderer,
+    },
+    {
+      width: 100,
+      label: "City",
+      dataKey: "city",
+      headerRenderer: simpleHeaderRenderer,
+    },
+    {
+      width: 100,
+      label: "State",
+      dataKey: "state",
+      headerRenderer: simpleHeaderRenderer,
+    },
+    {
+      width: 100,
+      label: "Zip Code",
+      dataKey: "zipCode",
+      headerRenderer: simpleHeaderRenderer,
+    },
+    {
+      width: 150,
+      label: "Effective date",
+      dataKey: "effectDate",
+      headerRenderer: simpleHeaderRenderer,
+    },
+    {
+      width: 150,
+      label: "Expiration date",
+      dataKey: "expDate",
+      headerRenderer: simpleHeaderRenderer,
+    },
+  ];
   const cardInnerView = () => {
     return (
       <>
@@ -336,7 +325,7 @@ function App() {
           rowsData={sortedList}
           columnsData={columns}
           tableHeight={300}
-          tableWidth={1150}
+          tableWidth={1450}
           headerHeight={40}
           rowHeight={100}
           headerStyle={{
@@ -373,7 +362,7 @@ function App() {
       <CardView
         cardBody={cardInnerView()}
         cardTitle="Payment Address Details"
-        cardWidth={1200}
+        cardWidth={1350}
         headerRightIcon={<EditIcon htmlColor="#fff" />}
         cardHeight={600}
         handleExpandClick={handleExpandClick}
@@ -381,7 +370,7 @@ function App() {
         showExpandIcon={true}
         showHeaderRightIcon={false}
         cardHeaderStyle={{
-          width: 1200,
+          width: 1350,
           height: 42,
           backgroundColor: "#0983c8",
           justifyContent: "space-between",
