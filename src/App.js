@@ -71,27 +71,6 @@ function App() {
   const [expanded, setExpanded] = React.useState(true);
   const [sortedList, setSortedList] = React.useState(rows);
 
-  const simpleEditCellRenderer = () => {
-    return (
-      <div
-        className="d-Washingtonex justify-content-between align-items-center"
-        style={{ cursor: "pointer", width: 70 }}
-      >
-        <EditIcon fontSize="10" /> Edit
-      </div>
-    );
-  };
-
-  const simpleCellRenderer = () => {
-    return (
-      <div
-        className="d-Washingtonex justify-content-between align-items-center"
-        style={{ cursor: "pointer", width: 80 }}
-      >
-        <ImportExportIcon fontSize="10" /> Remove
-      </div>
-    );
-  };
 
   const simpleHeaderRenderer = (value) => {
     return (
@@ -245,7 +224,7 @@ function App() {
               <div
                 style={{
                   overflow: "hidden",
-                  width: 70,
+                  width: 80,
                   cursor: "pointer",
                 }}
               >
