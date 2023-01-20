@@ -230,7 +230,22 @@ function App() {
         handleExpandClick={handleExpandClick}
         expanded={expanded}
         showExpandIcon={true}
-        showHeaderRightIcon={true}
+        showHeaderRightIcon={false}
+        cardHeaderStyle={{
+          width: 1200,
+          height: 42,
+          backgroundColor: "#0983c8",
+          justifyContent: "space-between",
+          display: "flex",
+          alignItems: "center",
+          opacity: 1,
+        }}
+        cardTitleStyle={{
+          color: "#ffffff",
+          width: "20%",
+          display: "flex",
+          justifyContent: "center",
+        }}
       />
     </>
   );

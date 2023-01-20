@@ -18,6 +18,9 @@ export const CardView = (props) => {
     handleExpandClick,
     expanded,
     showHeaderRightIcon,
+    cardHeaderStyle,
+    cardTitleStyle,
+    cardStyle,
   } = props;
 
   const ExpandMore = styled((props) => {
@@ -33,28 +36,9 @@ export const CardView = (props) => {
   }));
 
   return (
-    <Card sx={{ maxWidth: cardWidth, maxHeight: cardHeight, margin: 10 }}>
-      <div
-        style={{
-          width: cardWidth,
-          height: 42,
-          backgroundColor: "#0983c8",
-          justifyContent: "space-between",
-          display: "flex",
-          alignItems: "center",
-          opacity: 1,
-        }}
-      >
-        <div
-          style={{
-            color: "#ffffff",
-            width: "20%",
-            display: "flex",
-            justifyContent: "center",
-          }}
-        >
-          {cardTitle}
-        </div>
+    <Card sx={[cardStyle, { maxWidth: cardWidth, maxHeight: cardHeight }]}>
+      <div style={cardHeaderStyle}>
+        <div style={cardTitleStyle}>{cardTitle}</div>
         <div>
           {showHeaderRightIcon && (
             <IconButton aria-label="settings">{headerRightIcon}</IconButton>
@@ -87,4 +71,13 @@ CardView.propTypes = {
   handleExpandClick: PropTypes.func,
   expanded: PropTypes.bool,
   showHeaderRightIcon: PropTypes.bool,
+  cardHeaderStyle: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+  cardTitleStyle: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
+  cardStyle: PropTypes.objectOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  ),
 };
