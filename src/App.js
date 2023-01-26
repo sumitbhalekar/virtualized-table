@@ -155,9 +155,8 @@ function App() {
 
   function _customRowRenderer({ key, index }) {
     return (
-      <Card style={{ marginTop: 10, marginRight: 10 }}>
+      <Card style={{ marginTop: 10, marginRight: 10 }} key={key + index}>
         <div
-          key={key}
           className="ReactVirtualized__Table__row"
           role="row"
           style={{
