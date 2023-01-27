@@ -66,7 +66,7 @@ function App() {
   ];
   const [sortByValue, setSortByValue] = React.useState("id");
   const [sortByDirection, setSortByDirection] = React.useState(
-    SortDirection.ASC
+    SortDirection.DESC
   );
   const [expanded, setExpanded] = React.useState(true);
   const [sortedList, setSortedList] = React.useState(rows);
@@ -95,7 +95,7 @@ function App() {
         <div style={{ display: "inline-flex" }}>
           <SwapVertIcon style={{ fontSize: 18, marginTop: 2 }} />
           {dataKey === sortByValue &&
-            (sortByDirection === SortDirection.ASC ? (
+            (sortByDirection === SortDirection.DESC ? (
               <ArrowUpwardIcon style={{ fontSize: 16, marginTop: 2 }} />
             ) : (
               <ArrowDownwardIcon style={{ fontSize: 16, marginTop: 2 }} />
@@ -149,7 +149,7 @@ function App() {
       return x - y;
     });
     const sortedData =
-      sortDirection === SortDirection.DESC ? data1.reverse() : data1;
+      sortDirection === SortDirection.DESC ? data1 : data1.reverse();
     setSortedList(sortedData);
   };
 
